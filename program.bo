@@ -1,9 +1,9 @@
-func add(int64 x, int64 y) {
+func add(int64 x, int64 y) int64 {
     int64 result = x + y;
     return result;
 }
 
-func mult(double x, double y) {
+func mult(double x, double y) double {
     double result = x * y;
     return result;
 }
