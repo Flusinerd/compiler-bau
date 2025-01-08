@@ -9,4 +9,4 @@ func mult(double x, double y) double {
 }
 
 add(5, 10)
-mult(0.1, 10.0)s
+mult(0.1, 10.0)
