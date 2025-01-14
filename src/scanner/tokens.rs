@@ -41,16 +41,15 @@ impl PartialEq<Token> for &Token {
         match (self, other) {
             (Token::FuncKeyword { .. }, Token::FuncKeyword { .. }) => true,
             (Token::ReturnKeyword { .. }, Token::ReturnKeyword { .. }) => true,
-            (Token::TypeKeyword { value: a, .. }, Token::TypeKeyword { value: b, .. }) => a == b,
-            (Token::Identifier { value: a, .. }, Token::Identifier { value: b, .. }) => a == b,
-            (Token::Number { value: a, .. }, Token::Number { value: b, .. }) => a == b,
-            (Token::Symbol { value: a, .. }, Token::Symbol { value: b, .. }) => a == b,
+            (Token::TypeKeyword { value: a, .. }, Token::TypeKeyword { value: b, .. }) => true,
+            (Token::Identifier { value: a, .. }, Token::Identifier { value: b, .. }) => true,
+            (Token::Number { value: a, .. }, Token::Number { value: b, .. }) => true,
+            (Token::Symbol { value: a, .. }, Token::Symbol { value: b, .. }) => true,
             (Token::EOF { .. }, Token::EOF { .. }) => true,
             _ => false,
         }
     }
 }
-
 
 impl fmt::Display for Token {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -61,28 +60,44 @@ impl fmt::Display for Token {
             Token::ReturnKeyword { line, position } => {
                 write!(f, "ReturnKeyword at line {}, position {}", line, position)
             }
-            Token::TypeKeyword { value, line, position } => {
+            Token::TypeKeyword {
+                value,
+                line,
+                position,
+            } => {
                 write!(
                     f,
                     "TypeKeyword(value: \"{}\") at line {}, position {}",
                     value, line, position
                 )
             }
-            Token::Identifier { value, line, position } => {
+            Token::Identifier {
+                value,
+                line,
+                position,
+            } => {
                 write!(
                     f,
                     "Identifier(value: \"{}\") at line {}, position {}",
                     value, line, position
                 )
             }
-            Token::Number { value, line, position } => {
+            Token::Number {
+                value,
+                line,
+                position,
+            } => {
                 write!(
                     f,
                     "Number(value: \"{}\") at line {}, position {}",
                     value, line, position
                 )
             }
-            Token::Symbol { value, line, position } => {
+            Token::Symbol {
+                value,
+                line,
+                position,
+            } => {
                 write!(
                     f,
                     "Symbol(value: '{}') at line {}, position {}",

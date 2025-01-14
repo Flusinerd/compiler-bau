@@ -295,7 +295,9 @@ impl Parser {
     }
 
     fn check(&self, token: &Token) -> bool {
-        !self.is_at_end() && self.peek() == *token
+        let res = !self.is_at_end() && self.peek() == *token;
+        println!("Check: {:?} == {:?}", self.peek(), token);
+        res
     }
 
     fn advance(&mut self) -> Token {
