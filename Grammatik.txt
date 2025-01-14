@@ -1,0 +1,49 @@
+<program> ::= <statement> | <statement> ";" <program> | <statement> "\n" <program>
+
+<statement> ::= <assignment> | <expression> | <function_definition> | <return_statement>
+
+<function_definition> ::= "func" <identifier> "(" <parameter_list> ")" <block>
+
+<parameter_list> ::= <parameter> | <parameter> "," <parameter_list> | ε
+
+<parameter> ::= <type> <identifier>
+
+<block> ::= "{" <statement_list> "}"
+
+<statement_list> ::= <statement> | <statement> ";" <statement_list>
+
+<return_statement> ::= "return" <expression> ";" | "return" <expression> "\n"
+
+<assignment> ::= <type> <identifier> "=" <expression>
+
+<type> ::= "int64" | "double"
+
+<expression> ::= <term> <expression_tail>
+
+<expression_tail> ::= "+" <term> <expression_tail> 
+                    | "-" <term> <expression_tail> 
+                    | ε
+
+<term> ::= <factor> <term_tail>
+
+<term_tail> ::= "*" <factor> <term_tail> 
+              | "/" <factor> <term_tail> 
+              | "%" <factor> <term_tail> 
+              | ε
+
+<factor> ::= <number> | <identifier> | "(" <expression> ")" | <function_call>
+
+<function_call> ::= <identifier> "(" <argument_list> ")"
+
+<argument_list> ::= <expression> | <expression> "," <argument_list> | ε
+
+<number> ::= <int> | <float>
+
+<int> ::= <digit> | <digit> <int>
+<float> ::= <int> "." <int>
+
+<identifier> ::= <letter> | <letter> <identifier>
+
+<digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<letter> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" |
+             "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
