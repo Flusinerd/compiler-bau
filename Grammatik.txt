@@ -1,56 +1,58 @@
-<program>       ::= <declaration_list> "EOF"
+<program>       	::= <declaration_list> "EOF"
 
-<declaration_list> ::= <declaration> <declaration_list> | ε
-<declaration>   ::= <funcDecl>
-                  | <varDecl>
-                  | <statement>
+<declaration_list> 	::= <declaration> <declaration_list> | ε
+<declaration>   	::= <funcDecl>
+                  		| <varDecl>
+                  		| <statement>
 
-<funcDecl>      ::= "func" <IDENTIFIER> "(" <parameterDeclList> ")" <TYPE> <block>
-<parameterDeclList> ::= <parameterDecl> | <parameterDecl> "," <parameterDeclList> | ε
-<parameterDecl> ::= <TYPE> <IDENTIFIER> 
+<func_decl>      	::= "func" <IDENTIFIER> "(" <parameter_decl_list> ")" <OPTIONAL_TYPE> <block>
+<parameter_decl_list> ::= <parameter_decl> 
+						| <parameter_decl> "," <parameter_decl_list> 
+                  		| ε
+<parameter_decl> 	::= <TYPE> <IDENTIFIER> 
 
-<varDecl> ::= <TYPE> <IDENTIFIER> = <expression> ";"
-<statement>     ::= <exprStmt>
-                  | <printStmt>
-                  | <returnStmt>
-                  | <block>
+<statement>     	::= <expr_stmt>
+                  		| <print_stmt>
+                  		| <return_stmt>
+                  		| <block>
 
-<exprStmt>      ::= <expression> ";"
-<printStmt>     ::= "print" <expression> ";"
-<returnStmt>    ::= "return" <optional_expression> ";"
-<block>         ::= "{" <declaration_list> "}"
+<expr_stmt>      	::= <expression> ";"
+<print_stmt>     	::= "print" <expression> ";"
+<return_stmt>    	::= "return" <optional_expression> ";"
+<block>         	::= "{" <declaration_list> "}"
 
+<expression> 		::= <assignment>
 <optional_expression> ::= <expression> | ε
 
-<assignment>    ::= <TYPE> "IDENTIFIER" "=" <expression> | <term>
+<assignment>    	::= <TYPE> <IDENTIFIER> "=" <expression> ";" | <term>
 
+<term>          	::= <factor> <term_tail>
+<term_tail>     	::= ("-" | "+") <factor> <term_tail> | ε
 
-<term>          ::= <factor> <term_tail>
-<term_tail>     ::= ("-" | "+") <factor> <term_tail> | ε
+<factor>        	::= <unary> <factor_tail>
+<factor_tail>   	::= ("/" | "*") <unary> <factor_tail> | ε
 
-<factor>        ::= <unary> <factor_tail>
-<factor_tail>   ::= ("/" | "*") <unary> <factor_tail> | ε
-
-<unary>         ::= "-" <unary> |
-                  | <function_call>
-<function_call>      ::= "IDENTIFIER" "(" <optional_parameters> ")" 
+<unary>         	::= "-" <unary> |
+                  		| <function_call>
+                    
+<function_call>    	::= "IDENTIFIER" "(" <optional_parameters> ")" 
 <optional_parameters> ::= <parameters> | ε
-<parameters>    ::= "IDENTIFIER" <parameter_tail>
-<parameter_tail>::= "," "IDENTIFIER" <parameter_tail> | ε
+<parameters>    	::= "IDENTIFIER" <parameter_tail>
+<parameter_tail>	::= "," "IDENTIFIER" <parameter_tail> | ε
 
-<primary>       ::= "NUMBER"
-                  | "IDENTIFIER"
-                  | "(" <expression> ")"
-
+<primary>       	::= "NUMBER"
+                  		| "IDENTIFIER"
+                  		| "(" <expression> ")"
 
 <optional_arguments> ::= <arguments> | ε
-<arguments>     ::= <expression> <argument_tail>
-<argument_tail> ::= "," <expression> <argument_tail> | ε
+<arguments>     	::= <expression> <argument_tail>
+<argument_tail> 	::= "," <expression> <argument_tail> | ε
 
-<NUMBER>        ::= <DIGIT> <digit_tail>
-<digit_tail>    ::= <DIGIT> <digit_tail> | ε
-<IDENTIFIER>    ::= <ALPHA> <identifier_tail>
-<identifier_tail> ::= (<ALPHA> | <DIGIT>) <identifier_tail> | ε
-<ALPHA>         ::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z" | "_"
-<DIGIT>         ::= "0" | "1" | ... | "9"
-<TYPE>          ::= "int64" | "double"
+<NUMBER>        	::= <DIGIT> <digit_tail>
+<digit_tail>   	 	::= <DIGIT> <digit_tail> | ε
+<IDENTIFIER>    	::= <ALPHA> <identifier_tail>
+<identifier_tail> 	::= (<ALPHA> | <DIGIT>) <identifier_tail> | ε
+<ALPHA>         	::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z" | "_"
+<DIGIT>         	::= "0" | "1" | ... | "9"
+<TYPE>          	::= "int64" | "double"
+<OPTIONAL_TYPE>		::= <TYPE> | ε
