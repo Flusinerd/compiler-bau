@@ -5,3 +5,5 @@ edition = "2021"
 
 [dependencies]
 regex = "1.11.1"
+rustyline = "15.0.0"
+colored = "3.0.0"

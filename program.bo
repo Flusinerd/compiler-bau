@@ -1,12 +1,12 @@
 func add(int64 x, int64 y) int64 {
-    int64 result = x + y; int64 c = 1
-    return result
+    int64 result = x + y; int64 c = 1;
+    return result;
 }
 
 func mult(double x, double y) double {
-    double result = x * y
-    return result
+    double result = x * y;
+    return result;
 }
 
-add(5, 10)
-mult(0.1, 10.0)
+add(5, 10);
+mult(0.1, 10.0);

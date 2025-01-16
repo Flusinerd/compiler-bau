@@ -21,13 +21,12 @@ pub enum TokenType {
     // Literals.
     Identifier,
     Number,
+    Type,
 
     // Keywords.
     Func,
     Print,
     Return,
-    Int64,
-    Double,
 
     Eof,
 }
@@ -36,6 +35,8 @@ pub enum TokenType {
 pub enum Literal {
     Identifier(String),
     Number(f64),
+    Int64Type,
+    DoubleType,
 }
 
 #[derive(Clone)]
@@ -104,8 +105,6 @@ impl Default for Scanner {
                 ("func", TokenType::Func),
                 ("print", TokenType::Print),
                 ("return", TokenType::Return),
-                ("int64", TokenType::Int64),
-                ("double", TokenType::Double),
             ]
             .into_iter()
             .map(|(k, v)| (String::from(k), v))
@@ -178,7 +177,7 @@ impl Scanner {
                 if Scanner::is_decimal_digit(c) {
                     self.number()
                 } else if Scanner::is_alpha(c) {
-                    self.identifier()
+                    self.t()
                 } else {
                     self.err = Some(Error {
                         what: format!("scanner can't handle {}", c),
@@ -202,6 +201,21 @@ impl Scanner {
         Scanner::is_alpha(c) || Scanner::is_decimal_digit(c)
     }
 
+    fn t(&mut self) {
+        while Scanner::is_alphanumeric(self.peek()) {
+            self.advance();
+        }
+
+        let literal_val =
+            String::from_utf8(self.source[self.start..self.current].to_vec()).unwrap();
+
+        match literal_val.as_str() {
+            "int64" => self.add_token_literal(TokenType::Type, Some(Literal::Int64Type)),
+            "double" => self.add_token_literal(TokenType::Type, Some(Literal::DoubleType)),
+            _ => self.identifier(),
+        }
+    }
+
     fn identifier(&mut self) {
         while Scanner::is_alphanumeric(self.peek()) {
             self.advance();
@@ -219,7 +233,7 @@ impl Scanner {
             TokenType::Identifier => self.add_token_literal(
                 TokenType::Identifier,
                 Some(Literal::Identifier(literal_val)),
-            ), // book doesn't do this. why not?}
+            ),
             _ => self.add_token(token_type),
         }
     }
