@@ -1,3 +1,4 @@
+use crate::compiler;
 use crate::input;
 use crate::parser;
 use crate::scanner;
@@ -49,4 +50,48 @@ pub fn format_lexical_error(err: &scanner::Error, input: &input::Input) {
     );
 
     format_input(input, err.line, err.col);
+}
+
+enum CompilerErrorKind {
+    Parse,
+    Semantic,
+}
+
+fn format_compiler_error_info(
+    err: &compiler::ErrorInfo,
+    input: &input::Input,
+    kind: CompilerErrorKind,
+) {
+    eprintln!(
+        "loxi: {}: {}",
+        match kind {
+            CompilerErrorKind::Parse => "parse error",
+            CompilerErrorKind::Semantic => "semantic error",
+        }
+        .to_string()
+        .red()
+        .bold(),
+        err.what.white().bold(),
+    );
+
+    format_input(input, err.line, err.col);
+}
+
+pub fn format_compiler_error(err: &compiler::Error, input: &input::Input) {
+    match err {
+        compiler::Error::Lexical(err) => format_lexical_error(err, input),
+        compiler::Error::Parse(err) => {
+            format_compiler_error_info(err, input, CompilerErrorKind::Parse)
+        }
+        compiler::Error::Semantic(err) => {
+            format_compiler_error_info(err, input, CompilerErrorKind::Semantic)
+        }
+        compiler::Error::Internal(err) => {
+            eprintln!(
+                "loxi: {}: {}",
+                "internal error".red().bold(),
+                err.white().bold()
+            );
+        }
+    }
 }

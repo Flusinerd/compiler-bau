@@ -1,5 +1,5 @@
 func add(int64 x, int64 y) int64 {
-    int64 result = x + y; int64 c = 1;
+    int64 result = x + y;
     return result;
 }
 
@@ -8,5 +8,5 @@ func mult(double x, double y) double {
     return result;
 }
 
-add(5, 10);
-mult(0.1, 10.0);
+print add(5, 10);
+print mult(0.1, 10.0);

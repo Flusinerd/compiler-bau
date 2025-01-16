@@ -42,7 +42,6 @@ pub enum Op {
     Jump(usize),
     Call(u8),
     CloseUpvalue,
-    Invoke(/*method_name*/ String, /*arg count*/ u8),
 }
 
 #[derive(Default, Clone, Debug)]
