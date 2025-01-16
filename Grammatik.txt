@@ -1,49 +1,56 @@
-<program> ::= <statement> | <statement> ";" <program> | <statement> "\n" <program>
+<program>       ::= <declaration_list> "EOF"
 
-<statement> ::= <assignment> | <expression> | <function_definition> | <return_statement>
+<declaration_list> ::= <declaration> <declaration_list> | ε
+<declaration>   ::= <funcDecl>
+                  | <varDecl>
+                  | <statement>
 
-<function_definition> ::= "func" <identifier> "(" <parameter_list> ")" <block>
+<funcDecl>      ::= "func" <IDENTIFIER> "(" <parameterDeclList> ")" <TYPE> <block>
+<parameterDeclList> ::= <parameterDecl> | <parameterDecl> "," <parameterDeclList> | ε
+<parameterDecl> ::= <TYPE> <IDENTIFIER> 
 
-<parameter_list> ::= <parameter> | <parameter> "," <parameter_list> | ε
+<varDecl> ::= <TYPE> <IDENTIFIER> = <expression> ";"
+<statement>     ::= <exprStmt>
+                  | <printStmt>
+                  | <returnStmt>
+                  | <block>
 
-<parameter> ::= <type> <identifier>
+<exprStmt>      ::= <expression> ";"
+<printStmt>     ::= "print" <expression> ";"
+<returnStmt>    ::= "return" <optional_expression> ";"
+<block>         ::= "{" <declaration_list> "}"
 
-<block> ::= "{" <statement_list> "}"
+<optional_expression> ::= <expression> | ε
 
-<statement_list> ::= <statement> | <statement> ";" <statement_list>
+<assignment>    ::= <TYPE> "IDENTIFIER" "=" <expression> | <term>
 
-<return_statement> ::= "return" <expression> ";" | "return" <expression> "\n"
 
-<assignment> ::= <type> <identifier> "=" <expression>
+<term>          ::= <factor> <term_tail>
+<term_tail>     ::= ("-" | "+") <factor> <term_tail> | ε
 
-<type> ::= "int64" | "double"
+<factor>        ::= <unary> <factor_tail>
+<factor_tail>   ::= ("/" | "*") <unary> <factor_tail> | ε
 
-<expression> ::= <term> <expression_tail>
+<unary>         ::= "-" <unary> |
+                  | <function_call>
+<function_call>      ::= "IDENTIFIER" "(" <optional_parameters> ")" 
+<optional_parameters> ::= <parameters> | ε
+<parameters>    ::= "IDENTIFIER" <parameter_tail>
+<parameter_tail>::= "," "IDENTIFIER" <parameter_tail> | ε
 
-<expression_tail> ::= "+" <term> <expression_tail> 
-                    | "-" <term> <expression_tail> 
-                    | ε
+<primary>       ::= "NUMBER"
+                  | "IDENTIFIER"
+                  | "(" <expression> ")"
 
-<term> ::= <factor> <term_tail>
 
-<term_tail> ::= "*" <factor> <term_tail> 
-              | "/" <factor> <term_tail> 
-              | "%" <factor> <term_tail> 
-              | ε
+<optional_arguments> ::= <arguments> | ε
+<arguments>     ::= <expression> <argument_tail>
+<argument_tail> ::= "," <expression> <argument_tail> | ε
 
-<factor> ::= <number> | <identifier> | "(" <expression> ")" | <function_call>
-
-<function_call> ::= <identifier> "(" <argument_list> ")"
-
-<argument_list> ::= <expression> | <expression> "," <argument_list> | ε
-
-<number> ::= <int> | <float>
-
-<int> ::= <digit> | <digit> <int>
-<float> ::= <int> "." <int>
-
-<identifier> ::= <letter> | <letter> <identifier>
-
-<digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-<letter> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" |
-             "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
+<NUMBER>        ::= <DIGIT> <digit_tail>
+<digit_tail>    ::= <DIGIT> <digit_tail> | ε
+<IDENTIFIER>    ::= <ALPHA> <identifier_tail>
+<identifier_tail> ::= (<ALPHA> | <DIGIT>) <identifier_tail> | ε
+<ALPHA>         ::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z" | "_"
+<DIGIT>         ::= "0" | "1" | ... | "9"
+<TYPE>          ::= "int64" | "double"
