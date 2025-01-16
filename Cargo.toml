@@ -7,3 +7,4 @@ edition = "2021"
 regex = "1.11.1"
 rustyline = "15.0.0"
 colored = "3.0.0"
+serde = { version = "1.0", features = ["derive"] }

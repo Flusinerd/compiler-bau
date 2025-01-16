@@ -1,5 +1,7 @@
 use std::fs;
 
+mod bytecode;
+mod compiler;
 mod error_formatting;
 mod expr;
 mod input;
@@ -34,6 +36,10 @@ fn main() {
         println!("{:?}", tokens);
         let stmts = parser::parse(tokens).expect("Error parsing tokens");
         println!("{:?}", stmts);
+        let bytecode =
+            compiler::Compiler::compile(input.content.clone()).expect("Error compiling tokens");
+        println!("===Bytecode===");
+        println!("{:?}", bytecode);
     } else {
         repl::run();
     }
