@@ -86,7 +86,7 @@ fn dis_builtin(interp: &mut Interpreter, args: &[value::Value]) -> Result<value:
             Ok(value::Value::Nil)
         }
         _ => Err(format!(
-            "Invalid call: expected lox function, got {:?}.",
+            "Invalid call: expected gina function, got {:?}.",
             value::type_of(&args[0])
         )),
     }
@@ -170,7 +170,7 @@ pub enum InterpreterError {
 impl fmt::Display for InterpreterError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            InterpreterError::Runtime(err) => write!(f, "Lox runtime error: {}", err),
+            InterpreterError::Runtime(err) => write!(f, "Gina runtime error: {}", err),
         }
     }
 }
@@ -287,6 +287,7 @@ impl Interpreter {
 
                 let num_to_pop = self.stack.len() - self.frame().slots_offset
                     + usize::from(self.frame().closure.function.arity);
+
                 self.frames.pop();
 
                 self.pop_stack_n_times(num_to_pop);

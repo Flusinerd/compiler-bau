@@ -23,7 +23,7 @@ fn format_input(input: &input::Input, line: usize, col: i64) {
 pub fn format_parse_error(err: &parser::Error, input: &input::Input) {
     let err_str = format!("{:?}", err);
     eprintln!(
-        "loxi: {}: {}",
+        "ginai: {}: {}",
         "parse error".red().bold(),
         err_str.white().bold()
     );
@@ -44,7 +44,7 @@ pub fn format_parse_error(err: &parser::Error, input: &input::Input) {
 
 pub fn format_lexical_error(err: &scanner::Error, input: &input::Input) {
     eprintln!(
-        "loxi: {}: {}",
+        "ginai: {}: {}",
         "lexical error".red().bold(),
         err.what.white().bold(),
     );
@@ -63,7 +63,7 @@ fn format_compiler_error_info(
     kind: CompilerErrorKind,
 ) {
     eprintln!(
-        "loxi: {}: {}",
+        "ginai: {}: {}",
         match kind {
             CompilerErrorKind::Parse => "parse error",
             CompilerErrorKind::Semantic => "semantic error",
@@ -88,7 +88,7 @@ pub fn format_compiler_error(err: &compiler::Error, input: &input::Input) {
         }
         compiler::Error::Internal(err) => {
             eprintln!(
-                "loxi: {}: {}",
+                "ginai: {}: {}",
                 "internal error".red().bold(),
                 err.white().bold()
             );

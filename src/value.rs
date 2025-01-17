@@ -54,8 +54,8 @@ impl fmt::Display for Value {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Value::Number(n) => write!(f, "{}", n),
-            Value::String(id) => write!(f, "<string {:?}>", id), // Adjust formatting as needed
-            Value::Function(id) => write!(f, "<function {:?}>", id), // Adjust formatting as needed
+            Value::String(id) => write!(f, "<string {:?}>", id),
+            Value::Function(id) => write!(f, "<function {:?}>", id),
             Value::NativeFunction(_) => write!(f, "<native function>"),
             Value::Nil => write!(f, "nil"),
         }

@@ -108,14 +108,12 @@ impl Debugger {
     pub fn debug(&mut self) {
         println!(
             "===================================================\n\
-             Welcome to loxdb {}, the lox debugger! \n\
-             Authors: {}\n\
+             Welcome to ginadb, the gina debugger! \n\
              \n\
              Enter \"help\" (or \"h\") for list of commands.\n\
              ===================================================\n",
-            VERSION, AUTHORS
         );
-        let mut line_reader = line_reader::LineReader::new(".debugger-history.txt", "(loxdb) ");
+        let mut line_reader = line_reader::LineReader::new(".debugger-history.txt", "(ginadb) ");
 
         loop {
             if !self.interpreter.is_done() && !self.interrupted.load(Ordering::Acquire) {

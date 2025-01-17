@@ -11,5 +11,7 @@ func mult(double x, double y) double {
 }
 
 print add(5, 10);
-print mult(0.1, 10.0);
-print sqrt(9);
+mult(0.1, 10.0);
+sqrt(9);
+clock();
+

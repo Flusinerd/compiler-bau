@@ -59,19 +59,19 @@ fn main() {
         )
         .arg(
             Arg::with_name(SHOW_TOKENS_STR)
-                .long("--show-tokens")
+                .long("--tokens")
                 .takes_value(false)
                 .help("show the token stream"),
         )
         .arg(
             Arg::with_name(SHOW_AST_STR)
-                .long("--show-ast")
+                .long("--ast")
                 .takes_value(false)
                 .help("show the AST"),
         )
         .arg(
             Arg::with_name(DISASSEMBLE_STR)
-                .long("--disassemble")
+                .long("--op-code")
                 .takes_value(false)
                 .help("show the bytecode"),
         )
@@ -83,9 +83,9 @@ fn main() {
         )
         .arg(
             Arg::with_name(LITERAL_INPUT)
-                .long("-c")
+                .long("-input")
                 .takes_value(true)
-                .help("provide a literal string of Lox code"),
+                .help("provide a literal string of Gina code"),
         )
         .get_matches();
     if let Some(input) = get_input(&matches) {

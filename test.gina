@@ -1,0 +1,7 @@
+func add(int64 x, int64 y) int64 {
+    int64 result = x + y;
+    return result;
+}
+
+print add(1, 2);
+add(1, 2);

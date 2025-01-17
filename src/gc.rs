@@ -1,6 +1,6 @@
 use crate::value;
 
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt};
 
 enum GCData {
     String(String),
@@ -47,7 +47,7 @@ pub struct Heap {
 
 impl Default for Heap {
     fn default() -> Heap {
-        let next_gc = std::env::var("LOX_GC_TRIGGER_SIZE")
+        let next_gc = std::env::var("GINA_GC_TRIGGER_SIZE")
             .ok()
             .and_then(|env_str| env_str.parse::<usize>().ok())
             .unwrap_or(1024 * 1024);
