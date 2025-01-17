@@ -1,6 +1,6 @@
 use crate::value;
 
-use std::{collections::HashMap, fmt};
+use std::collections::HashMap;
 
 enum GCData {
     String(String),
