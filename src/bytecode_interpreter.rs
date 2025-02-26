@@ -288,8 +288,6 @@ impl Interpreter {
                 let num_to_pop = self.stack.len() - self.frame().slots_offset
                     + usize::from(self.frame().closure.function.arity);
 
-                println!("Stack before popping: {:?}", self.stack);
-
                 self.frames.pop();
 
                 self.pop_stack_n_times(num_to_pop);

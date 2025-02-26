@@ -1,7 +1,7 @@
 int64 global = 5;
 
 func add(int64 x, int64 y) int64 {
-    int64 result = x + y;
+    int64 result = x + y * 2;
     return result;
 }
 
@@ -10,7 +10,9 @@ func mult(double x, double y) double {
     return result;
 }
 
-add(5, 10);
+print add(5, 10);
 mult(0.1, 10.0);
 sqrt(9);
 clock();
+
+
